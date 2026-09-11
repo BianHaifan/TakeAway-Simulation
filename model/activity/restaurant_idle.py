@@ -1,11 +1,13 @@
 from .activity import Activity
 from ..entity.order import Order
+from ..entity.data_context import DataContext
 from typing import List
 
 
 class RestaurantIdle(Activity):
-    def __init__(self, seed: int = 0):
+    def __init__(self, data_context: DataContext, seed: int = 0):
         super().__init__(seed=seed, uid="RestaurantIdle")
+        self.data_context = data_context
         self._q_finish_signal: List[Order] = []
 
     @property
@@ -35,8 +37,17 @@ class RestaurantIdle(Activity):
                     restaurant.order = order
                     order.position = restaurant.position
                     self.q_finish_signal.remove(order)
-                    # print(
-                    #     f"{self.clock_time}\tAssign order {order.order_id} to restaurant {restaurant.id}."
-                    # )
+                    if self.data_context.debug_mode:
+                        print(
+                            f"{self.clock_time}\tAssign order {order.order_id} to restaurant {restaurant.id}."
+                        )
+                    self.data_context.animation_events.append(
+                        {
+                            "clock_time": self.clock_time.isoformat(),
+                            "type": "order_assigned",
+                            "restaurant": restaurant.id,
+                            "order": order.order_id
+                        }
+                    )
                     self.finish(restaurant)
                     break

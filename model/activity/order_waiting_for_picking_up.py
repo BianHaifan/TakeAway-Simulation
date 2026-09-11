@@ -1,11 +1,13 @@
 from .activity import Activity
 from ..entity.rider import Rider
+from ..entity.data_context import DataContext
 from typing import List
 
 
 class WaitingForPickingUp(Activity):
-    def __init__(self, seed: int = 0):
+    def __init__(self, data_context: DataContext, seed: int = 0):
         super().__init__(seed=seed, uid="WaitingForPickingUp")
+        self.data_context = data_context
         self._q_finish_signal: List[Rider] = []
 
     @property
@@ -38,9 +40,10 @@ class WaitingForPickingUp(Activity):
             for order in self.d_loads_ready_finish:
                 if order in rider.load and order.position == rider.position:
                     matched = True
-                    # print(
-                    #     f"{self.clock_time}\tOrder {order.order_id} has been picked up already."
-                    # )
+                    if self.data_context.debug_mode:
+                        print(
+                            f"{self.clock_time}\tOrder {order.order_id} has been picked up already."
+                        )
                     self.finish(order)
             if matched:
                 self.q_finish_signal.remove(rider)

@@ -1,11 +1,13 @@
 from .activity import Activity
 from ..entity.restaurant import Restaurant
+from ..entity.data_context import DataContext
 from typing import List
 
 
 class BeingPrepared(Activity):
-    def __init__(self, seed: int = 0):
+    def __init__(self, data_context: DataContext, seed: int = 0):
         super().__init__(seed=seed, uid="BeingPrepared")
+        self.data_context = data_context
         self._q_finish_signal: List[Restaurant] = []
 
     @property
@@ -34,7 +36,8 @@ class BeingPrepared(Activity):
             if order is not None and order in list(self.d_loads_ready_finish):
                 self.q_finish_signal.remove(restaurant)
                 restaurant.order = None
-                # print(
-                #     f"{self.clock_time}\tOrder {order.order_id} has been cooked already."
-                # )
+                if self.data_context.debug_mode:
+                    print(
+                        f"{self.clock_time}\tOrder {order.order_id} has been cooked already."
+                    )
                 self.finish(order)

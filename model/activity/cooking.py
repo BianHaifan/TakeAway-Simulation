@@ -31,7 +31,16 @@ class Cooking(Activity):
         self._hc_doing[restaurant.id].observe_change(-1)
 
     def finish(self, restaurant: Restaurant) -> None:
-        # print(
-        #     f"{self.clock_time}\tRestaurant {restaurant.id} finished order {restaurant.order.order_id}."
-        # )
+        if self.data_context.debug_mode:
+            print(
+                f"{self.clock_time}\tRestaurant {restaurant.id} finished order {restaurant.order.order_id}."
+            )
+        self.data_context.animation_events.append(
+            {
+                "clock_time": self.clock_time.isoformat(),
+                "type": "cooking_finished",
+                "restaurant": restaurant.id,
+                "order": restaurant.order.order_id,
+            }
+        )
         super().finish(restaurant)

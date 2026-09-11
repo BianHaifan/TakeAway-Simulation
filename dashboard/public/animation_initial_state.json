@@ -1,0 +1,55 @@
+﻿{
+  "scene": {
+    "road_start": 0.0,
+    "road_end": 500.0,
+    "customer_position": 500.0
+  },
+  "clock_time": "0001-01-04T00:00:00",
+  "rider": {
+    "name": "Kangaroo",
+    "state": "to_deliver",
+    "position": 471.0202993418612,
+    "target_order": null,
+    "load": [
+      682,
+      683,
+      680,
+      684,
+      685
+    ],
+    "receive": null
+  },
+  "restaurants": [
+    {
+      "id": 0,
+      "position": 30.0,
+      "cooking": null,
+      "ready": [
+        688
+      ]
+    },
+    {
+      "id": 1,
+      "position": 100.0,
+      "cooking": 689,
+      "ready": [
+        686
+      ]
+    },
+    {
+      "id": 2,
+      "position": 400.0,
+      "cooking": 687,
+      "ready": []
+    },
+    {
+      "id": 3,
+      "position": 450.0,
+      "cooking": null,
+      "ready": [
+        681
+      ]
+    }
+  ],
+  "unassigned_orders": []
+}

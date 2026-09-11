@@ -1,0 +1,398 @@
+.animationCard {
+    padding: 20px
+}
+
+.animationHeader {
+    margin-bottom: 14px
+}
+
+.timeBadge {
+    background: #172033;
+    color: #fff;
+    border-radius: 999px;
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 800;
+    white-space: nowrap
+}
+
+.animationLoading {
+    height: 520px;
+    display: grid;
+    place-items: center;
+    color: #64748b
+}
+
+.scene {
+    position: relative;
+    height: 520px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: linear-gradient(#fbfdff, #f8fafc);
+    overflow: hidden
+}
+
+.road {
+    position: absolute;
+    left: 4%;
+    right: 4%;
+    top: 50%;
+    height: 128px;
+    transform: translateY(-50%);
+    background: #dbe3ea;
+    border-top: 2px solid #cbd5e1;
+    border-bottom: 2px solid #cbd5e1
+}
+
+.road:before,
+.road:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #fff;
+    opacity: .9
+}
+
+.road:before {
+    top: 28px
+}
+
+.road:after {
+    bottom: 28px
+}
+
+.roadCenter {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: 2px;
+    transform: translateY(-50%);
+    background: repeating-linear-gradient(90deg, #fff 0 30px, transparent 30px 58px)
+}
+
+.place {
+    position: absolute;
+    z-index: 4;
+    transform: translateX(-50%)
+}
+
+.place.above {
+    bottom: calc(100% + 24px)
+}
+
+.place.below {
+    top: calc(100% + 24px)
+}
+
+.placeCard {
+    position: relative;
+    display: grid;
+    justify-items: center;
+    min-width: 108px;
+    text-align: center;
+    gap: 3px
+}
+
+.placeCard strong {
+    font-size: 13px
+}
+
+.placeStatus {
+    font-size: 11px;
+    color: #64748b;
+    white-space: nowrap
+}
+
+
+.statusText {
+    font-weight: 700;
+}
+
+.statusText.idle {
+    color: #64748b;
+}
+
+.statusText.cooking {
+    color: #d97706;
+}
+
+.statusText.ready {
+    color: #0f766e;
+}
+
+.statusText.pickup {
+    color: #2563eb;
+}
+
+.statusText.deliver {
+    color: #dc2626;
+}
+
+.statusText.carrying {
+    color: #7c3aed;
+}
+
+.placeIcon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, .06)
+}
+
+.placeIcon svg {
+    width: 28px;
+    height: 28px;
+    fill: none;
+    stroke: #172033;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round
+}
+
+.storeIcon svg {
+    stroke: #f97316
+}
+
+.restaurantStatusLines {
+    display: grid;
+    justify-items: center;
+    gap: 2px;
+    min-height: 30px;
+}
+
+.homeIcon svg {
+    stroke: #0f766e
+}
+
+.connector {
+    position: absolute;
+    left: 50%;
+    width: 1px;
+    height: 24px;
+    background: #cbd5e1
+}
+
+.above .connector {
+    top: 100%
+}
+
+.below .connector {
+    bottom: 100%
+}
+
+.orderBubble,
+.loadBubble {
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 22px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0;
+    margin: 0;
+    background: #f97316;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, .14)
+}
+
+.orderBubble {
+    right: 20px;
+    top: -2px
+}
+
+.rider {
+    position: absolute;
+    z-index: 8;
+    top: 50%;
+    width: 62px;
+    height: 42px;
+    transform: translate(-50%, -50%);
+}
+
+.bikeWrap {
+    position: relative;
+    width: 62px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bike {
+    width: 58px;
+    height: 38px;
+    transform-origin: center;
+}
+
+.bike svg {
+    width: 58px;
+    height: 38px;
+    fill: none;
+    stroke: #f97316;
+    stroke-width: 2.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    filter: drop-shadow(0 2px 2px rgba(15, 23, 42, .15))
+}
+
+.riderLabel {
+    position: absolute;
+    left: 50%;
+    bottom: 50px;
+    transform: translateX(-50%);
+    display: grid;
+    justify-items: center;
+    white-space: nowrap;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 7px;
+    padding: 5px 8px;
+    box-shadow: 0 3px 10px rgba(15, 23, 42, .08)
+}
+
+.riderLabel strong {
+    font-size: 11px
+}
+
+.riderLabel span {
+    font-size: 10px;
+    color: #64748b
+}
+
+.loadBubble {
+    right: -4px;
+    top: -4px
+}
+
+.playback {
+    display: grid;
+    grid-template-columns: auto minmax(180px, 1fr) auto auto;
+    align-items: center;
+    gap: 12px;
+    margin-top: 16px
+}
+
+.playButton {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 8px;
+    background: #172033;
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer
+}
+
+.timeline {
+    width: 100%;
+    accent-color: #f97316
+}
+
+.timelineTimes {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 11px;
+    margin-top: -8px
+}
+
+.speedGroup {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #64748b;
+    font-size: 12px
+}
+
+.speedGroup button,
+.resetButton {
+    border: 1px solid #cbd5e1;
+    background: #fff;
+    color: #475569;
+    border-radius: 7px;
+    padding: 6px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700
+}
+
+.speedGroup button.active {
+    background: #172033;
+    color: #fff;
+    border-color: #172033
+}
+
+.resetButton {
+    white-space: nowrap
+}
+
+.tabBar {
+    display: flex;
+    gap: 4px;
+    background: #e9eef5;
+    border: 1px solid #dbe3ec;
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 16px
+}
+
+.tabButton {
+    border: 0;
+    background: transparent;
+    color: #64748b;
+    border-radius: 6px;
+    padding: 9px 18px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer
+}
+
+.tabButton.active {
+    background: #172033;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, .12)
+}
+
+@media(max-width:800px) {
+    .scene {
+        height: 620px
+    }
+
+    .playback {
+        grid-template-columns: auto 1fr
+    }
+
+    .speedGroup,
+    .resetButton {
+        grid-column: auto
+    }
+
+    .placeCard {
+        min-width: 82px
+    }
+
+    .placeCard strong {
+        font-size: 11px
+    }
+
+    .placeStatus {
+        font-size: 9px
+    }
+}

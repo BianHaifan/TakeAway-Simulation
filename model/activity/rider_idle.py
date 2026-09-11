@@ -1,11 +1,13 @@
 from .activity import Activity
 from typing import List
 from ..entity.order import Order
+from ..entity.data_context import DataContext
 
 
 class RiderIdle(Activity):
-    def __init__(self, seed: int = 0):
+    def __init__(self, data_context: DataContext, seed: int = 0):
         super().__init__(seed=seed, uid="RiderIdle")
+        self.data_context = data_context
         self._q_finish_signal: List[Order] = []
 
     @property
@@ -37,5 +39,14 @@ class RiderIdle(Activity):
             order = self.q_finish_signal[0]
             rider.target_order = order
             self._q_finish_signal.remove(order)
-            # print(f"{self.clock_time}\tRider received order {order.order_id}.")
+            if self.data_context.debug_mode:
+                print(f"{self.clock_time}\tRider received order {order.order_id}.")
+            self.data_context.animation_events.append(
+                {
+                    "clock_time": self.clock_time.isoformat(),
+                    "type": "receive_order",
+                    "rider": rider.name,
+                    "order": order.order_id,
+                }
+            )
             self.finish(rider)

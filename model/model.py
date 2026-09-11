@@ -23,7 +23,11 @@ class Model(Sandbox):
         self.on_warmup.add(self._reset_custom_stats)
         # --- Generators ---
         self.order_generator = self.add_child(
-            OrderGenerator(hourly_order_rate=10, seed=self._default_rs.next())
+            OrderGenerator(
+                data_context=data_context,
+                hourly_order_rate=10,
+                seed=self._default_rs.next(),
+            )
         )
         self.restaurant_generator = self.add_child(
             RestaurantGenerator(data_context=data_context, seed=self._default_rs.next())
@@ -33,22 +37,26 @@ class Model(Sandbox):
         )
         # --- Activities ---
         self.restaurant_idle = self.add_child(
-            RestaurantIdle(seed=self._default_rs.next())
+            RestaurantIdle(data_context=data_context, seed=self._default_rs.next())
         )
         self.cooking = self.add_child(
             Cooking(data_context=data_context, seed=self._default_rs.next())
         )
         self.order_being_prepared = self.add_child(
-            BeingPrepared(seed=self._default_rs.next())
+            BeingPrepared(data_context=data_context, seed=self._default_rs.next())
         )
         self.order_waiting_for_picking_up = self.add_child(
-            WaitingForPickingUp(seed=self._default_rs.next())
+            WaitingForPickingUp(data_context=data_context, seed=self._default_rs.next())
         )
         self.order_being_delivered = self.add_child(
             BeingDelivered(data_context=data_context, seed=self._default_rs.next())
         )
-        self.rider_idle = self.add_child(RiderIdle(seed=self._default_rs.next()))
-        self.pick_up = self.add_child(PickUp(seed=self._default_rs.next()))
+        self.rider_idle = self.add_child(
+            RiderIdle(data_context=data_context, seed=self._default_rs.next())
+        )
+        self.pick_up = self.add_child(
+            PickUp(data_context=data_context, seed=self._default_rs.next())
+        )
         self.deliver = self.add_child(
             Deliver(data_context=data_context, seed=self._default_rs.next())
         )
@@ -118,6 +126,7 @@ class Model(Sandbox):
     def _reset_custom_stats(self):
         self.total_finish_time = 0.0
         self.finish_order_count = 0
+        self.data_context.animation_events.clear()
 
     @property
     def average_order_waiting_time(self):

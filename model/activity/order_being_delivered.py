@@ -3,6 +3,7 @@ from ..entity.rider import Rider
 from typing import List
 from ..entity.data_context import DataContext
 
+
 class BeingDelivered(Activity):
     def __init__(self, data_context: DataContext, seed: int = 0):
         super().__init__(seed=seed, uid="BeingDelivered")
@@ -62,11 +63,15 @@ class BeingDelivered(Activity):
             return
         for rider in list(self.q_finish_signal):
             for order in list(rider.load):
-                if order in self.d_loads_ready_finish and order.position == self.data_context.customer.position:
+                if (
+                    order in self.d_loads_ready_finish
+                    and order.position == self.data_context.customer.position
+                ):
                     rider.load.remove(order)
                     if not rider.load:
                         self._q_finish_signal.remove(rider)
-                    # print(
-                    #     f"{self.clock_time}\tOrder {order.order_id} has been delivered already."
-                    # )
+                    if self.data_context.debug_mode:
+                        print(
+                            f"{self.clock_time}\tOrder {order.order_id} has been delivered already."
+                        )
                     self.finish(order)

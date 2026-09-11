@@ -15,6 +15,9 @@ class DataContext:
         self.customer: Customer = None
         self.restaurants: List[Restaurant] = []
         self.rider: Rider = None
+        self.debug_mode: bool = False
+        # useless attribute for simulation, only for animation
+        self.animation_events: List[dict] = []
 
 
 class DataContextInitializer:

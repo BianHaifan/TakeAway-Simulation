@@ -1,5 +1,6 @@
 from typing import List
 from .order import Order
+import datetime as dt
 
 
 class Rider:
@@ -18,6 +19,9 @@ class Rider:
         self.capacity: int = capacity
         self.load: List[Order] = []
         self.target_order: Order = None
+        # These two attributes are useless for simulation, only for snapshot
+        self.start_moving_time: dt.datetime = dt.datetime.min
+        self.end_moving_time: dt.datetime = dt.datetime.min
 
     def __repr__(self):
         return f"Rider {self.name}"
