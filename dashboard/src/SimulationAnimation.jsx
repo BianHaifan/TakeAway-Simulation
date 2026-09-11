@@ -46,7 +46,8 @@ const riderStatus = (move, rider) => {
 export default function SimulationAnimation() {
   const [initial, setInitial] = useState(null), [events, setEvents] = useState([]), [error, setError] = useState(''), [playing, setPlaying] = useState(false), [speed, setSpeed] = useState(60), [simTime, setSimTime] = useState(0), [world, setWorld] = useState(null)
   const worldRef = useRef(null), eventIndex = useRef(0), simRef = useRef(0), lastFrame = useRef(null)
-  useEffect(() => { Promise.all([fetch('/animation_initial_state.json').then(r => r.json()), fetch('/animation_events.json').then(r => r.json())]).then(([i, ev]) => { const base = parseClock(i.clock_time); const normalized = ev.map((e, idx) => ({ ...e, _t: parseClock(e.clock_time) - base, _idx: idx })); setInitial(i); setEvents(normalized); const w = makeWorld(i); worldRef.current = w; setWorld(cloneWorld(w)) }).catch(e => setError(`Failed to load animation data: ${e.message}`)) }, [])
+  const BASE = import.meta.env.BASE_URL
+  useEffect(() => { Promise.all([fetch(`${BASE}animation_initial_state.json`).then(r => r.json()), fetch(`${BASE}animation_events.json`).then(r => r.json())]).then(([i, ev]) => { const base = parseClock(i.clock_time); const normalized = ev.map((e, idx) => ({ ...e, _t: parseClock(e.clock_time) - base, _idx: idx })); setInitial(i); setEvents(normalized); const w = makeWorld(i); worldRef.current = w; setWorld(cloneWorld(w)) }).catch(e => setError(`Failed to load animation data: ${e.message}`)) }, [])
   const duration = events.length ? Math.max(0, events[events.length - 1]._t) : 0
   const movementSegments = useMemo(() => {
     if (!initial) return []

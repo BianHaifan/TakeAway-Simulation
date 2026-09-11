@@ -2,6 +2,7 @@ import {
   Bar, BarChart, CartesianGrid, Cell, Legend, Pie, PieChart,
   ResponsiveContainer, Tooltip, XAxis, YAxis,
 } from 'recharts'
+import kangarooImage from './assets/kangaroo.jpg'
 
 const pct = (value, digits = 1) => `${(Number(value || 0) * 100).toFixed(digits)}%`
 
@@ -27,7 +28,11 @@ export default function Dashboard({ restaurants, rider, order }) {
   return <>
     <section className="metricGrid"><MetricCard label="Busiest Restaurant" value={busiest ? `#${busiest.restaurant_id}` : '-'} detail={busiest ? `${pct(busiest.busy, 1)} busy rate` : 'Highest restaurant utilization'} /><MetricCard label="Average Restaurant Busy Rate" value={pct(avg, 1)} detail="Across all restaurants" /><MetricCard label={`Rider ${rider.rider_name} Busy Rate`} value={pct(rider.busy_rate, 1)} detail="Share of simulation time busy" /><MetricCard label="Completed Orders" value={Number(order.count).toLocaleString()} detail="Orders completed in simulation" /><MetricCard label="Average Waiting Time" value={`${Number(order.avg).toFixed(2)} h`} detail="Average order waiting time" /></section>
     <main className="dashboardGrid"><section className="card restaurantCard"><div className="sectionHeader"><div><h2>Restaurants by Busy Rate</h2><div className="subtle">Compare utilization across restaurants in the current simulation.</div></div><span className="badge medium">Utilization</span></div><RestaurantBar data={restaurants} /></section>
-      <section className="card"><div className="sectionHeader"><div><h2>Rider Utilization</h2><div className="subtle">Busy and idle share for rider {rider.rider_name}.</div></div><img className="riderMascot" src="/kangaroo.jpg" alt="Kangaroo mascot" /></div><RiderPie busyRate={rider.busy_rate} /></section>
+      <section className="card"><div className="sectionHeader"><div><h2>Rider Utilization</h2><div className="subtle">Busy and idle share for rider {rider.rider_name}.</div></div><img
+        className="riderMascot"
+        src={kangarooImage}
+        alt="Kangaroo mascot" />
+      </div><RiderPie busyRate={rider.busy_rate} /></section>
       <section className="card"><div className="sectionHeader"><div><h2>Order Service Status</h2><div className="subtle">Summary of completed demand and customer waiting.</div></div><span className="badge low">Completed</span></div><div className="statusBox"><div className="statusHeader"><div><span className="subtle">Average Waiting Time</span><strong>{Number(order.avg).toFixed(2)} h</strong></div></div><div className="statusLine"><span className="subtle">Completed orders</span><strong>{Number(order.count).toLocaleString()}</strong></div><div className="statusLine"><span className="subtle">Rider busy rate</span><strong>{pct(rider.busy_rate, 1)}</strong></div></div></section></main>
   </>
 }
