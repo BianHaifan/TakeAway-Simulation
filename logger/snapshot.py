@@ -42,7 +42,7 @@ def _snapshot_rider_state(model) -> dict:
         "name": rider.name,
         "state": "idle",
         "position": rider.position,
-        "target_order": rider.target_order,
+        "target_order": None,
         "load": [order.order_id for order in rider.load],
         "receive": None,
     }
@@ -56,6 +56,7 @@ def _snapshot_rider_state(model) -> dict:
         if rider.position > rider.target_order.position:
             moving_distance = -moving_distance
         rider_state["position"] += moving_distance
+        rider_state["target_order"] = rider.target_order.order_id
     elif rider in model.deliver.s_loads_started:
         rider_state["state"] = "to_deliver"
         moving_distance = (
